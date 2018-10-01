@@ -34,10 +34,10 @@ while (new_sg >= target_specific_gravity) {
   new_sg = ((starting_specific_gravity + water_to_add)*100)/total_ml
   var bucket_water_weight = (bucket_contents_weight * water_to_add)/starting_specific_gravity
 
-  sg_html += "<td>" + total_ml + "</td>"
-  sg_html += "<td>" + water_to_add + "</td>"
-  sg_html += "<td>" + new_sg + "</td>"
-  sg_html += "<td>" + Math.round(bucket_water_weight) + "</td>"
+  sg_html += "<td>" + total_ml.toFixed(2) + "</td>"
+  sg_html += "<td>" + water_to_add.toFixed(2) + "</td>"
+  sg_html += "<td>" + new_sg.toFixed(2) + "</td>"
+  sg_html += "<td>" + bucket_water_weight.toFixed(2) + "</td>"
   sg_html += "</tr>"
 
   console.log ( "total_ml = " + total_ml + " new_sg = " + new_sg + " bucket_water_weight = " + bucket_water_weight)
