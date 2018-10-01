@@ -6,20 +6,46 @@
 
 <style type="text/css">
 li { list-style-type: None }
+table { border-collapse: collapse; }
+table,th,td { border: 1px solid black; }
+th,td { padding: 5px; }
 </style>
 
 <script>
 function create_sg_table() {
-    var starting_specific_gravity = document.forms["sg_for_glazes"]["starting_specific_gravity"].value;
-    var target_specific_gravity = document.forms["sg_for_glazes"]["target_specific_gravity"].value;
-    var total_bucket_weight = document.forms["sg_for_glazes"]["total_bucket_weight"].value;
-    var empty_bucket_weight = document.forms["sg_for_glazes"]["empty_bucket_weight"].value;
-    if (starting_specific_gravity == "") {
-        alert("starting specific gravity must be filled out");
-        return false;
-    }
+    var starting_specific_gravity = parseFloat(document.forms["sg_for_glazes"]["starting_specific_gravity"].value);
+    var target_specific_gravity = parseFloat(document.forms["sg_for_glazes"]["target_specific_gravity"].value);
+    var total_bucket_weight = parseFloat(document.forms["sg_for_glazes"]["total_bucket_weight"].value);
+    var empty_bucket_weight = parseFloat(document.forms["sg_for_glazes"]["empty_bucket_weight"].value);
+    
+var new_sg = starting_specific_gravity
+var bucket_contents_weight = total_bucket_weight - empty_bucket_weight
+var water_to_add = 0
 
+var sg_html = "<table><tr><th>beaker contents weight</th>"
+sg_html += "<th>water added to 100ml beaker</th>"
+sg_html += "<th>new specific gravity</th>"
+sg_html += "<th>bucket water to add</th>"
+sg_html += "</tr><tr>"
 
+while (new_sg >= target_specific_gravity) {
+  water_to_add = water_to_add + .1
+  var total_ml = 100 + water_to_add
+  new_sg = ((starting_specific_gravity + water_to_add)*100)/total_ml
+  var bucket_water_weight = (bucket_contents_weight * water_to_add)/starting_specific_gravity
+
+  sg_html += "<td>" + total_ml + "</td>"
+  sg_html += "<td>" + water_to_add + "</td>"
+  sg_html += "<td>" + new_sg + "</td>"
+  sg_html += "<td>" + Math.round(bucket_water_weight) + "</td>"
+  sg_html += "</tr>"
+
+  console.log ( "total_ml = " + total_ml + " new_sg = " + new_sg + " bucket_water_weight = " + bucket_water_weight)
+  }
+
+sg_html += "</table>"
+
+document.querySelector('.results').innerHTML = sg_html
 
 }
 </script>
@@ -63,6 +89,6 @@ function create_sg_table() {
 			</ul>
 		</form>	
 	</div>
-        <div id="results"></div>
+        <div id="results" class="results"></div>
 	</body>
 </html>
