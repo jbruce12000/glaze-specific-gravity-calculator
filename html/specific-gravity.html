@@ -27,8 +27,8 @@ if (starting_specific_gravity <= target_specific_gravity) {
     return false
     }
 
-var sg_html = "<table><tr><th>beaker contents weight(g)</th>"
-sg_html += "<th>water added to 100ml beaker(ml)</th>"
+var sg_html = "<table><tr><th>graduated cylinder contents weight(g)</th>"
+sg_html += "<th>water added to 100ml graduated cylinder(ml)</th>"
 sg_html += "<th>new specific gravity</th>"
 sg_html += "<th>bucket water to add(ml)</th>"
 sg_html += "</tr><tr>"
@@ -97,8 +97,17 @@ document.querySelector('.results').innerHTML = sg_html
 
 <p>There are two things you can do.  If you're nervous and you want to verify the specific gravity adjustment on a small scale without screwing up a whole glaze bucket, then do this...</p>
 <ul><li>pick the row in the table that is nearest your target specific gravity (probably one of the last two rows)</li>
-<li>the second column of the output is <b>water added to a 100ml beaker</b>. add this much water to your graduated cylinder.</li>
-<li>blah</li>
+<li>the second column of the output is <b>water added to a 100ml graduated cylinder</b>. add this much water to your graduated cylinder.</li>
+<li>mix thoroughly</li>
+<li>pour the contents into a cup and then fill the graduated cylinder to exactly 100ml, weight it and verify the specific gravity is what you expect</li>
+</ul>
+
+<p>You either built confidence in the step above, or you blindly trust stuff on the web, either way you're ready to adjust the specific gravity of the whole bucket.
+The steps are very similar to doing so with a graduated cylinder, except at larger scale...</p>
+<ul><li>pick the row in the table that is nearest your target specific gravity (probably one of the last two rows)</li>
+<li>the fourth column of the output is <b>bucket water to add</b>. add this much water to your bucket</li>
+<li>mix thoroughly</li>
+<li>verify the specific gravity with the graduated cylinder if you like, or move on to the next bucket.</li>
 </ul>
 
   </div>
@@ -107,7 +116,7 @@ document.querySelector('.results').innerHTML = sg_html
 	<div id="form_container">
 		<form class="form" name="sg_for_glazes" id="form_29113" onsubmit="event.preventDefault(); create_sg_table();" >
 					<div class="form_description">
-			<p>Easily determine the amount of water needed to reach a target specific gravity for a glaze and water mixture.</p>
+			<h2>Enter values below to determine the amount of water needed to reach a target specific gravity for a glaze and water mixture.</h2>
 		</div>						
 			<ul >
 			
