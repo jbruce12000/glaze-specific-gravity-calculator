@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>specific gravity for glaze</title>
+
+<style type="text/css">
+li { list-style-type: None }
+</style>
+
+<script>
+function create_sg_table() {
+    var starting_specific_gravity = document.forms["sg_for_glazes"]["starting_specific_gravity"].value;
+    var target_specific_gravity = document.forms["sg_for_glazes"]["target_specific_gravity"].value;
+    var total_bucket_weight = document.forms["sg_for_glazes"]["total_bucket_weight"].value;
+    var empty_bucket_weight = document.forms["sg_for_glazes"]["empty_bucket_weight"].value;
+    if (starting_specific_gravity == "") {
+        alert("starting specific gravity must be filled out");
+        return false;
+    }
+
+
+
+}
+</script>
+
+</head>
+<body id="main_body" >
+	<div id="form_container">
+	
+		<form name="sg_for_glazes" id="form_29113" onsubmit="event.preventDefault(); create_sg_table();" >
+					<div class="form_description">
+			<h2>specific gravity for glaze</h2>
+			<p>Easily determine the amount of water needed to reach a target specific gravity for a glaze and water mixture.</p>
+		</div>						
+			<ul >
+			
+					<li id="li_1" >
+		<label class="description" for="element_1">starting specific gravity</label>
+		<div>
+			<input id="starting_specific_gravity" name="starting_specific_gravity" class="element text medium" type="text" maxlength="255" value="147.2"/> 
+		</div> 
+		</li>		<li id="li_2" >
+		<label class="description" for="element_2">target specific gravity</label>
+		<div>
+			<input id="target_specific_gravity" name="target_specific_gravity" class="element text medium" type="text" maxlength="255" value="143.0"/> 
+		</div> 
+		</li>		<li id="li_3" >
+		<label class="description" for="element_3">total bucket weight</label>
+		<div>
+			<input id="total_bucket_weight" name="total_bucket_weight" class="element text medium" type="text" maxlength="255" value="7824"/> 
+		</div> 
+		</li>		<li id="li_4" >
+		<label class="description" for="element_4">empty bucket weight</label>
+		<div>
+			<input id="empty_bucket_weight" name="empty_bucket_weight" class="element text medium" type="text" maxlength="255" value="885"/> 
+		</div> 
+		</li>
+					<li class="buttons">
+			    <input type="hidden" name="form_id" value="29113" />
+			<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+		</li>
+			</ul>
+		</form>	
+	</div>
+        <div id="results"></div>
+	</body>
+</html>
