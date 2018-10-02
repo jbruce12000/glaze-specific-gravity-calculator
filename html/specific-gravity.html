@@ -12,20 +12,14 @@ th,td { padding: 5px; }
 </style>
 
 <script>
-function create_sg_table() {
-    var starting_specific_gravity = parseFloat(document.forms["sg_for_glazes"]["starting_specific_gravity"].value);
-    var target_specific_gravity = parseFloat(document.forms["sg_for_glazes"]["target_specific_gravity"].value);
-    var total_bucket_weight = parseFloat(document.forms["sg_for_glazes"]["total_bucket_weight"].value);
-    var empty_bucket_weight = parseFloat(document.forms["sg_for_glazes"]["empty_bucket_weight"].value);
-    
+/*---------------------------------------------------*/
+/* add water to the bucket to lower specific gravity */
+/*---------------------------------------------------*/
+function add_water(starting_specific_gravity,target_specific_gravity,total_bucket_weight,empty_bucket_weight) {
+
 var new_sg = starting_specific_gravity
 var bucket_contents_weight = total_bucket_weight - empty_bucket_weight
 var water_to_add = 0
-
-if (starting_specific_gravity <= target_specific_gravity) {
-    alert('starting specific gravity must be greater than target specific gravity')
-    return false
-    }
 
 var sg_html = "<table><tr><th>water added to 100ml graduated cylinder(ml)</th>"
 sg_html += "<th>new specific gravity</th>"
@@ -45,8 +39,57 @@ while (new_sg >= target_specific_gravity) {
 
   console.log ( "total_ml = " + total_ml + " new_sg = " + new_sg + " bucket_water_weight = " + bucket_water_weight)
   }
-
 sg_html += "</table>"
+return sg_html
+}
+
+/*------------------------------------------------------*/
+/* remove water to the bucket to raise specific gravity */
+/*------------------------------------------------------*/
+function remove_water(starting_specific_gravity,target_specific_gravity,total_bucket_weight,empty_bucket_weight) {
+var new_sg = starting_specific_gravity
+var bucket_contents_weight = total_bucket_weight - empty_bucket_weight
+var water_to_add = 0
+
+var sg_html = "<table><tr><th>water to remove from 100ml graduated cylinder(ml)</th>"
+sg_html += "<th>new specific gravity</th>"
+sg_html += "<th>bucket water to remove(ml)</th>"
+sg_html += "</tr><tr>"
+
+while (new_sg <= target_specific_gravity) {
+  water_to_add = water_to_add - .1
+  var total_ml = 100 + water_to_add
+  new_sg = ((starting_specific_gravity + water_to_add)*100)/total_ml
+  var bucket_water_weight = (bucket_contents_weight * water_to_add)/starting_specific_gravity
+
+  sg_html += "<td>" + Math.abs(water_to_add.toFixed(2)) + "</td>"
+  sg_html += "<td>" + new_sg.toFixed(2) + "</td>"
+  sg_html += "<td>" + Math.abs(bucket_water_weight.toFixed(2)) + "</td>"
+  sg_html += "</tr>"
+
+  }
+sg_html += "</table>"
+return sg_html
+}
+
+/*------------------------------------------------------------*/
+/* create a table of containing the amount of water to adjust */
+/* in a graduated cylinder, new specific gravity, and amount  */
+/* of water to adjust a bucket of glaze.                      */
+/*------------------------------------------------------------*/
+function create_sg_table() {
+
+var starting_specific_gravity = parseFloat(document.forms["sg_for_glazes"]["starting_specific_gravity"].value);
+var target_specific_gravity = parseFloat(document.forms["sg_for_glazes"]["target_specific_gravity"].value);
+var total_bucket_weight = parseFloat(document.forms["sg_for_glazes"]["total_bucket_weight"].value);
+var empty_bucket_weight = parseFloat(document.forms["sg_for_glazes"]["empty_bucket_weight"].value);
+
+if (starting_specific_gravity >= target_specific_gravity) {
+  sg_html = add_water(starting_specific_gravity,target_specific_gravity,total_bucket_weight,empty_bucket_weight)
+  }
+else {
+  sg_html = remove_water(starting_specific_gravity,target_specific_gravity,total_bucket_weight,empty_bucket_weight)
+  }
 
 document.querySelector('.results').innerHTML = sg_html
 window.scrollBy(0,100);
@@ -97,7 +140,7 @@ window.scrollBy(0,100);
 <ul><li>pick the row in the table that is nearest your target specific gravity (probably one of the last two rows)</li>
 <li>the first column of the output is <b>water added to a 100ml graduated cylinder</b>. add this much water to your graduated cylinder. you might need a syringe if you want to be crazy accurate.</li>
 <li>mix thoroughly</li>
-<li>pour the contents into a cup and then fill the graduated cylinder to exactly 100ml, weight it and verify the specific gravity is what you expect</li>
+<li>pour the contents into a cup and then fill the graduated cylinder to exactly 100ml, weigh it and verify the specific gravity is what you expect</li>
 </ul>
 
 <p>You either built confidence in the step above, or you blindly trust stuff on the web, either way you're ready to adjust the specific gravity of the whole bucket.
